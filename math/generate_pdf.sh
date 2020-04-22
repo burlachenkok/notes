@@ -9,9 +9,9 @@ do
 
     pdflatex ${texfile} > /dev/null
 
-    rm -f ${fbasename}.out
-    rm -f ${fbasename}.log
-    rm -f ${fbasename}.aux  
-    rm -f ${fbasename}.toc
+#   rm -f ${fbasename}.out
+#   rm -f ${fbasename}.log
+#   rm -f ${fbasename}.aux  
+#   rm -f ${fbasename}.toc
 
 done
