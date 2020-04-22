@@ -1,0 +1,155 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{graphicx}
+\usepackage{xcolor}                 % Colors. Usage: \color{red} Red text
+\usepackage{hyperref}               % Insert URL for external resource in the internet
+\usepackage{cmap}                   % Search in PDF
+\usepackage{mathtext}
+\usepackage{icomma}                 % Smart comma
+\usepackage{extsizes}
+% Easy way to setup page paddings
+\usepackage{geometry}
+\geometry{top=25mm}
+\geometry{bottom=35mm}
+\geometry{left=35mm}
+\geometry{right=20mm}
+% Extra work with tables
+\usepackage{longtable}  % Long tables
+\usepackage{multirow}   % Several rows
+\usepackage{multicol}   % Several columns
+\usepackage{setspace} % Interline distance
+\onehalfspacing % x1.5
+%\doublespacing % x2
+%\singlespacing % x1
+% Highlighting
+\usepackage{soul}
+\usepackage{url}                % Lets you typeset urls.
+% Setup hyperlighting
+\usepackage{hyperref}
+\hypersetup{
+ unicode    = true,
+ colorlinks = true,        % false: links in reactangles; true: color links
+ linkcolor  = red,           % internal links within document
+ citecolor  = green,         % link to bibliogrpahy
+ filecolor  = magenta,       % link for files
+ urlcolor   = cyan           % link to URLs
+}
+% https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
+\theoremstyle{plain}                
+\newtheorem{theorem}{Theorem}[section]  
+%======================================================================================
+\title{Random notes about Math for Deep Learning Models}
+\date{Last update: 18 APR 2020}
+\author{Konstantin Burlachenko (burlachenkok@gmail.com)}
+%======================================================================================
+
+\begin{document}
+	
+\maketitle
+\tableofcontents
+\section{Introduction}
+This document is suggested to be evolved in time and contains some general math things in which DL aspects is leveraging on or heuristically or non-heuristically.\\
+ \textbf{It's only in the beginning phase and will be evolved in time}.
+\section{Differentiation}
+\subsection{Introduction about Differentiation}
+This day’s people talk about chain rule when prediction schema $F(x;\theta):X \to Y$ constructed as composition of several functions.
+\subsection{Differentiation Definition}
+Function $f:\mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$ 
+is differentiable if for arbitrarily $\varDelta x \in \mathbb{R}^{n}$ which elementwise consist of some components, without any inter-depency we can state thate 
+\[f(x+\varDelta x)-f(x) = A \varDelta x + \alpha(\varDelta x)|\varDelta x| \]
+Where:
+\begin{enumerate}
+ \item $\alpha(\varDelta x)$ is infinite small function i.e. $lim_{\varDelta x \rightarrow 0} \alpha(\varDelta x) = 0$
+ \item A is a rectangular matrix and its items should not depend on specific direction or values of $\varDelta x$
+ \item $\alpha(\varDelta x)$ is infinite dimensional function relative to $\varDelta x$
+\end{enumerate}
+
+Differentiation is a local property of the function. If function is differentiable in all points in some set $\chi$ then people say that function is differentiable in the whole set $\chi$.
+\\
+\subsection{Some Theorems in context of Differentiation}
+\begin{theorem} [Partial Derivatives]
+ If function $f$ is differentiable in point then all partial derivatives of the function exist and equal to corresponded elements of the matrix $A$.
+\end{theorem}
+To derive this theorem you should vary \textbf{$\varDelta x = [0, 0, ...., 0, dx_i, 0, ...., 0]^T$}.
+This simple variation in input will allow eliminating every from A, except i-th column.
+
+\begin{theorem} [Continuity Property]
+ If function $f$ is differentiable in point then function is continuous in the point.
+\end{theorem}
+\begin{theorem} [Differentiability from existing partial derivatives]
+ If function $f$ has all partial derivatives in point \textit{a} and they are continuous in functions in point \textit{a} then function is differentiable in point \textit{a}.
+\end{theorem}
+\begin{theorem} [Differentiability of function composition] Also known as the chain rule.
+ \begin{enumerate}
+  \item  If function $f$ is differentiable in point of it's domain \textit{a}.
+  \item  If function $g$ is differentiable in point of it's domain \textit{b}.
+  \item  If $b = f(a)$
+ \end{enumerate}
+ Then function $z=g(f(x))$ is differentiable in points \textit{a} and 
+ $z' = g' \cdot f'$
+\end{theorem}
+\section{What is convolution in mathematics}
+\subsection{Convolution definition}
+I think you know that convolution is well-defined operation:
+\begin{equation}\label{convolution}
+f*g(x)=\int^{+\infty}_{-\infty} f(y)g(x-y)dy
+\end{equation}
+Sometimes limits of integration in \eqref{convolution} can be reduced to some subinterval of $[-\infty, +\infty]$.
+\subsection{Convolution commutativity}
+\begin{multline}\label{convolution_commutativity}
+f*g(x)=\int^{+\infty}_{-\infty} f(y)g(x-y)dy=\\
+|x-y=z,dy=-dz|=\\
+\int^{-\infty}_{+\infty}  f(x-z)g(z)(-dz)=\\
+\int^{+\infty}_{-\infty}  g(z)f(x-z)dz=g*f(x)
+\end{multline}
+So we have proved that $f*g=g*f$
+\subsection{Time invariant property of convolution}
+\begin{multline}\label{lti_convolution_property}
+\tau(f*g,b)=f*g(x-b)=\int^{+\infty}_{-\infty} f(y)g((x-b)-y)dy=\\
+|g(x-b)=\tau(g,b)\\
+\int^{+\infty}_{-\infty}  f(y)\tau(g,b)(x-y)dy=\\
+f*\tau(g,b)
+\end{multline}
+So we have proved that $f*g=g*f$
+\subsection{Some Convolution Algebraic Properties}
+\begin{align}
+f*g&=g*f\\
+(f*g)*h)&=f*(g*h)\\
+f*(g+h)&=f*g+f*h\\
+\frac{{d}^{k}{(f*g)}}{dx^k}&=f*\frac{{d}^{k}{g}}{dx^k}\\
+f*\delta (a)&=f(a)
+\end{align}
+\section{What is cross-correlation in math}
+\subsection{Cross-Correlation definition}
+If consider functions $\mathbb{R} \to \mathbb{R}$ then value of cross-correlation for them is \textbf{defined pointwise for specific value x} as the following
+\begin{equation}\label{cross-correlation}
+f \star g(x)=\int^{+\infty}_{-\infty} f(y)g(x+y)dy
+\end{equation}
+If compared with convolution there is no "flipping and dragging" of convolution kernel in algebraic definition.
+\begin{flushleft}
+ \colorbox{yellow}{\textbf{What Neural Network community mean by Convolution}}\\
+ \colorbox{yellow}{\textbf{is some form of Cross-Correlations}}
+\end{flushleft}
+\subsection{Cross-Correlation connection with convolution}
+Let's define function $f^{-}:=f(-x)$. This operation takes a function and reverse it w.r.t. to function value axis.
+\begin{multline}
+f \star g(x)=\int^{+\infty}_{-\infty} f(y)g(x+y)dy=\\
+|y=-z,dy=-dz|=\\
+\int^{-\infty}_{+\infty} f(-z)g(x-z)(-dz)=\\
+\int^{+\infty}_{-\infty} f(-z)g(x-z)dz=\\
+\int^{+\infty}_{-\infty} f^{-}g(x-z)dz=f^{-}*g\\
+\end{multline}
+So we derived $f \star g=f^{-}*g$
+\subsection{Some Cross-Correlation Properties not necessary to hold}
+Convolution behaves like multiplication, but as you see $f \star g=f^{-}*g$
+So due to that different algebraic properties is not necessary to hold.
+List of some properties which in general does not hold
+\begin{align}
+f \star g =f^-*g = g*f^- &\ne g^-*f= g \star f\\
+(f \star g) \star h &\ne f \star (g \star h)
+\end{align}
+\section{To be continued}
+Deep Learning models evolve in time and attack composition function representation from different ways and learning too.
+\end{document}

@@ -1,0 +1,6 @@
+# Several type formats that should be ignored
+*.aux
+*.log
+*.out
+*.toc
+.pdf
