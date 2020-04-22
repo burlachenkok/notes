@@ -54,12 +54,20 @@ This document is suggested to be evolved in time and contains some general math 
  \textbf{It's only in the beginning phase and will be evolved in time}.
 \section{Differentiation}
 \subsection{Introduction about Differentiation}
-This day’s people talk about chain rule when prediction schema $F(x;\theta):X \to Y$ constructed as composition of several functions.
-\subsection{Differentiation Definition}
+This day’s people talk about chain rule when prediction schema $F(x;\theta):X \to Y$ constructed as composition of several differentiable functions.
+
+
+Leveraging in chain-rule for differentiable function allow compute gradient of function in systematic way, such that computation will be correct from math point of view, even numerically it can be various problems.
+
+\subsection{Differentiation Definition in Mathematics}
 Function $f:\mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$ 
-is differentiable if for arbitrarily $\varDelta x \in \mathbb{R}^{n}$ which elementwise consist of some components, without any inter-depency we can state thate 
-\[f(x+\varDelta x)-f(x) = A \varDelta x + \alpha(\varDelta x)|\varDelta x| \]
-Where:
+is differentiable if for arbitrarily $\varDelta x \in \mathbb{R}^{n}$ which element wise consist of some components (without any inter-dependency in them) we can have:
+
+\begin{equation}
+f(x+\varDelta x)-f(x) = A \varDelta x + \alpha(\varDelta x)|\varDelta x|
+\end{equation} 
+
+\textbf{Where:}
 \begin{enumerate}
  \item $\alpha(\varDelta x)$ is infinite small function i.e. $lim_{\varDelta x \rightarrow 0} \alpha(\varDelta x) = 0$
  \item A is a rectangular matrix and its items should not depend on specific direction or values of $\varDelta x$
@@ -79,13 +87,13 @@ This simple variation in input will allow eliminating every from A, except i-th 
  If function $f$ is differentiable in point then function is continuous in the point.
 \end{theorem}
 \begin{theorem} [Differentiability from existing partial derivatives]
- If function $f$ has all partial derivatives in point \textit{a} and they are continuous in functions in point \textit{a} then function is differentiable in point \textit{a}.
+ If function $f$ has all partial derivatives in point \textbf{a} and this partial derivative are continuous functions in a point \textbf{a} then function is differentiable in point \textbf{a}.
 \end{theorem}
 \begin{theorem} [Differentiability of function composition] Also known as the chain rule.
  \begin{enumerate}
-  \item  If function $f$ is differentiable in point of it's domain \textit{a}.
-  \item  If function $g$ is differentiable in point of it's domain \textit{b}.
-  \item  If $b = f(a)$
+  \item  If function $f$ is differentiable in point of it's domain \textbf{a}.
+  \item  If function $g$ is differentiable in point of it's domain \textbf{b}.
+  \item  If $\textbf{b} = f(\textbf{a})$
  \end{enumerate}
  Then function $z=g(f(x))$ is differentiable in points \textit{a} and 
  $z' = g' \cdot f'$

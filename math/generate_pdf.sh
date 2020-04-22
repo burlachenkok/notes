@@ -8,7 +8,10 @@ do
     rm -f ${fbasename}.pdf
 
     pdflatex ${texfile} > /dev/null
-    #rm -f ${fbasename}.out
-    #rm -f ${fbasename}.log
-    #rm -f ${fbasename}.aux  
+
+    rm -f ${fbasename}.out
+    rm -f ${fbasename}.log
+    rm -f ${fbasename}.aux  
+    rm -f ${fbasename}.toc
+
 done
