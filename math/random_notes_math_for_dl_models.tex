@@ -45,6 +45,8 @@
 % \author{Konstantin Burlachenko (burlachenkok@gmail.com)}
 %======================================================================================
 
+\newcommand\sh[1]{\ensuremath{\mathop{\text{\normalfont ш}}#1}}
+
 \begin{document}
 	
 \maketitle
@@ -129,8 +131,17 @@ f*g&=g*f\\
 (f*g)*h)&=f*(g*h)\\
 f*(g+h)&=f*g+f*h\\
 \frac{{d}^{k}{(f*g)}}{dx^k}&=f*\frac{{d}^{k}{g}}{dx^k}\\
-f*\delta (a)&=f(a)
 \end{align}
+
+\subsection{Convolution Connection with Sampling }
+
+\begin{align}
+f*\delta (a)&=f(a)\\
+\delta (x-a)*\delta (x-b)=\delta_a * \delta_b &= \delta_{a+b}\\
+\sh_p * f = \left(\sum_{n=-\infty}^{+\infty} \delta(x-np) \right) * f(x) &= \sum_{k=-\infty}^{+\infty} f(x-kp)
+\end{align}
+
+
 \section{What is cross-correlation in math}
 \subsection{Cross-Correlation definition}
 If consider functions $\mathbb{R} \to \mathbb{R}$ then value of cross-correlation for them is \textbf{defined pointwise for specific value x} as the following
