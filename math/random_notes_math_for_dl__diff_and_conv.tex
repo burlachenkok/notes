@@ -40,7 +40,7 @@
 \theoremstyle{plain}                
 \newtheorem{theorem}{Theorem}[section]  
 %======================================================================================
-\title{\textbf{Random notes about Math for DL}\\Differentiation and Convolution}
+\title{\textbf{Back to Fundamental things for DL}\\Differentiation and Convolution}
 \date{Last update: 18 APR 2020}
 \author{Konstantin Burlachenko (burlachenkok@gmail.com)}
 %======================================================================================
@@ -48,35 +48,29 @@
 \newcommand\sh[1]{\ensuremath{\mathop{\text{\normalfont ш}}#1}}
 
 \begin{document}
-	
+
 \maketitle
 \tableofcontents
 \section{Introduction}
 This document is suggested to be evolved in time and contains some general math things in which DL aspects is leveraging on or heuristically or non-heuristically.\\
 Anybody welcome to append into it \textbf{pure mathematical} type things more or less relative to: Differentiation and Convolution.
-
 \section{Differentiation}
 \subsection{Introduction about Differentiation}
-This day’s people talk about chain rule when prediction schema $F(x;\theta):X \to Y$ constructed as composition of several differentiable functions.
+This days people talk about chain rule when prediction schema $F(x;\theta):X \to Y$ constructed as composition of several differentiable functions.
 
-
-Leveraging in chain-rule for differentiable function allow compute gradient of function in systematic way, such that computation will be correct from math point of view, even numerically it can be various problems.
-
+Leveraging in chain rule for differentiable function allows computing gradient of function in systematic way, such that the computation will be correct from math point of view, even numerically it can be various problems.
 \subsection{Differentiation Definition in Mathematics}
 Function $f:\mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$ 
-is differentiable if for arbitrarily $\varDelta x \in \mathbb{R}^{n}$ which element wise consist of some components (without any inter-dependency in them) we can have:
-
+is differentiable if for arbitrarily $\varDelta x \in \mathbb{R}^{n}$ which element-wise consist of some components (without any interdependency in them) we can have:
 \begin{equation}
 f(x+\varDelta x)-f(x) = A \varDelta x + \alpha(\varDelta x)|\varDelta x|
 \end{equation} 
-
 \textbf{Where:}
 \begin{enumerate}
  \item $\alpha(\varDelta x)$ is infinite small function i.e. $lim_{\varDelta x \rightarrow 0} \alpha(\varDelta x) = 0$
  \item A is a rectangular matrix and its items should not depend on specific direction or values of $\varDelta x$
  \item $\alpha(\varDelta x)$ is infinite dimensional function relative to $\varDelta x$
 \end{enumerate}
-
 Differentiation is a local property of the function. If function is differentiable in all points in some set $\chi$ then people say that function is differentiable in the whole set $\chi$.
 \\
 \subsection{Some Theorems formulations in context of Differentiation}
@@ -85,81 +79,65 @@ Differentiation is a local property of the function. If function is differentiab
 \end{theorem}
 To derive this theorem you should vary \textbf{$\varDelta x = [0, 0, ...., 0, dx_i, 0, ...., 0]^T$}.
 This simple variation in input will allow eliminating every from A, except i-th column.
-
 \begin{theorem} [Continuity Property]
  If function $f$ is differentiable in point then function is continuous in the point.
 \end{theorem}
 \begin{theorem} [Differentiability from existing partial derivatives]
- If function $f$ has all partial derivatives in point \textbf{a} and this partial derivative are continuous functions in a point \textbf{a} then function is differentiable in point \textbf{a}.
+ If function $f$ has all partial derivatives in point, \textbf{a} and this partial derivative are continuous functions in a point \textbf{a} then function is differentiable in points \textbf{a}.
 \end{theorem}
 \begin{theorem} [Differentiability of function composition] Also known as the chain rule.
  \begin{enumerate}
-  \item  If function $f$ is differentiable in point of it's domain \textbf{a}.
-  \item  If function $g$ is differentiable in point of it's domain \textbf{b}.
+  \item  If function $f$ is differentiable in point of it’s domain \textbf{a}.
+  \item  If function $g$ is differentiable in point of it’s domain \textbf{b}.
   \item  If $\textbf{b} = f(\textbf{a})$
  \end{enumerate}
  Then function $z=g(f(x))$ is differentiable in points \textit{a} and 
  $z' = g' \cdot f'$
 \end{theorem}
-
 \subsection{Taylor Series for $\mathbb{R} \to \mathbb{R}$}
-
-Even this days more things are based on convexity, but nevertheless it's a very fundamental thing for numerical methods and mathematical analysis. 
-
-Named after the English mathematician \href{https://en.wikipedia.org/wiki/Brook_Taylor}{Brook Taylor (1685-1731)}.
-
-The form that I have studied in Bauman Moscow State Technical University from lectures prof. V.V.Feoktistov is a form of Taylor Series with remainder in form of of variation of \href{https://mathworld.wolfram.com/SchloemilchRemainder.html}{Schlömilch Roche}.
-
+Even this days more things are based on convexity, but nevertheless it’s a very fundamental thing for numerical methods and mathematical analysis. 
+Named after the English mathematician \href{https://en.wikipedia.org/wiki/Brook_Taylor}{Brook Taylor (1685–1731)}.
+The form that I have studied in Bauman Moscow State Technical University from lectures Prof. V.V.Feoktistov is a form of Taylor Series with remainder in form of variation of \href{https://mathworld.wolfram.com/SchloemilchRemainder.html}{SchlÃ¶milch Roche}.
 \begin{equation}
-	f(x)=T_n(x)+R_n(x)=\sum_{k=0}^{n} \dfrac{f^{(k)}(x_0)}{k!}(x-x_0)^k+R_n(x)
+ f(x)=T_n(x)+R_n(x)=\sum_{k=0}^{n} \dfrac{f^{(k)}(x_0)}{k!}(x-x_0)^k+R_n(x)
 \end{equation}
-
 \begin{equation}
-	R_n(x)=\dfrac{(x-x_0)^{n+1}(1-\theta)^{n-p+1}}{pn!}f^{(n+1)}(x_0+\theta(x-x_0))	
+ R_n(x)=\dfrac{(x-x_0)^{n+1}(1-\theta)^{n-p+1}}{pn!}f^{(n+1)}(x_0+\theta(x-x_0)) 
 \end{equation}
-
 In this form we can choose: \textbf{$x_0,p,n$}, but not $\theta \in (0,1)$\\
-
-\textbf{Steps of prove this Theorem:}
+\textbf{Steps to prove this theorem:}
 \begin{enumerate}
-	\item $f(x)=T_n(x)+R_n(x)$, for some undefined $R_n(x)$. Nothing more then notation trick
-	\item But if take $x_0$ then in fact $f(x_0)-T_n(x_0)=0=R_n(x_0)$, so it seems that $x_0$ is a zero of function (a.k.a as a root) $R_n(x_0)=0$
-	\item Without loss of generality we can represent $R_n(x_0)=(x-x_0)^pM(x)$. Now via pushing all complication into new term $M(x)$
-	\item Now we fix \textit{x} to some constant value. Now we will select some function $M(x)$ such that equality 
-	$f(x)=T_n(x)+(x-x_0)^pM(x)$ holds in point \textit{x}
-	\item We consider the difference between the function f and its representation via Taylor Series $F(t)=f(t)-T_n(t)-(t-x_0)^pM(t)$ 
-	\item What is special about function $F(t)$, that $F(x_0)=F(x)=0$. By \href{https://en.wikipedia.org/wiki/Rolle\%27s_theorem}{Rolle's theorem} we're in situation that there is exist at least one $c=x_0+\theta(x-_0), \theta \in (0,1)$ such that $F'(c)=0$
-	\item After formal differentiation there are a lot of cancellation which finally will bring us that we can obtain form of $M(x)$	
+ \item $f(x)=T_n(x)+R_n(x)$, for some undefined $R_n(x)$. Nothing more than notation trick
+ \item But if take $x_0$ then in fact $f(x_0)-T_n(x_0)=0=R_n(x_0)$, so it seems that $x_0$ is a zero of function (aka as a root) $R_n(x_0)=0$
+ \item Without loss of generality we can represent $R_n(x_0)=(x-x_0)^pM(x)$. Now via pushing all complications into new term $M(x)$
+ \item Now we fix \textit{x} to some constant value. Now we will select some function $M(x)$ such that equality 
+ $f(x)=T_n(x)+(x-x_0)^pM(x)$ holds in point \textit{x}
+ \item We consider the difference between the function f and its representation via Taylor Series $F(t)=f(t)-T_n(t)-(t-x_0)^pM(t)$ 
+ \item What is special about function $F(t)$, that $F(x_0)=F(x)=0$. By \href{https://en.wikipedia.org/wiki/Rolle\%27s_theorem}{Rolle’s theorem} we’re in a situation that there exists at least one $c=x_0+\theta(x-_0), \theta \in (0,1)$ such that. $F'(c)=0$
+ \item After formal differentiation there are a lot of cancellation which finally will bring us that we can obtain form of $M(x)$ 
 \end{enumerate}
-
 \textbf{Various Residuals}
 \begin{enumerate}
-	\item If we will select $p=n+1$ then name of residual is \href{https://mathworld.wolfram.com/LagrangeRemainder.html}{Lagrange Remainder}
-	\item If we will select $p=1$ then name of residual is \href{https://mathworld.wolfram.com/CauchyRemainder.html}{Cauchy Remainder}	
-	\item Peano's Form of Remainder $R_n(x)=o((x-x_0)^n)$. It's Remainder is infinite small w.r.t. to $(x-x_0)^n$
+ \item If we will select $p=n+1$ then name of residual is \href{https://mathworld.wolfram.com/LagrangeRemainder.html}{Lagrange Remainder}
+ \item If we will select $p=1$ then name of residual is \href{https://mathworld.wolfram.com/CauchyRemainder.html}{Cauchy Remainder} 
+ \item Peano’s Form of Remainder $R_n(x)=o((x-x_0)^n)$. Its remainder is infinite small w.r.t. to $(x-x_0)^n$
 \end{enumerate}
-
 \subsection{Taylor Series for $\mathbb{R}^n \to \mathbb{R}$}
-
-\textbf{Steps of prove this Theorem:}
+\textbf{Steps to prove this theorem:}
 \begin{enumerate}
-\item We fix a point \textbf{a} in linear space $\mathbb{R}^n$ 
+\item We fix a point \textbf{} in linear space $\mathbb{R}^n$ 
 \item We consider some displacement $dx$.
 \item Now instead original function we consider $g(t)=f(a+dx \cdot t)$ and apply one dimensional Taylor series for it.
 \item We look what is a value for $g(1)$ and write it down to write formally value of $f(x+dx)$ 
 \end{enumerate}
-
 \textbf{Formulation}
 \begin{equation}
-	f(x+dx)=\sum_{k=0}^{m}\dfrac{d^kf(x)}{k!}+\dfrac{d^{m+1}f(a+\nu dx)}{(m+1)!}\\
+ f(x+dx)=\sum_{k=0}^{m}\dfrac{d^kf(x)}{k!}+\dfrac{d^{m+1}f(a+\nu dx)}{(m+1)!}\\
 \end{equation}
-
 \begin{equation}
-	d^kf(x)=\left(\frac{\partial}{\partial x_1}dx_1+...+\frac{\partial}{\partial x_n}dx_n\right)^kf(x)
+ d^kf(x)=\left(\frac{\partial}{\partial x_1}dx_1+...+\frac{\partial}{\partial x_n}dx_n\right)^kf(x)
 \end{equation}
-
 To be absolutely honest, the Taylor Theorem with a remainder in this \textit{Lagrange-Form} stop to be true for the case of a vector-valued function, instead of a scalar argument.
-
 
 \section{What is convolution in mathematics}
 \subsection{Convolution definition}
@@ -167,7 +145,7 @@ I think you know that convolution is well-defined operation:
 \begin{equation}\label{convolution}
 f*g(x)=\int^{+\infty}_{-\infty} f(y)g(x-y)dy
 \end{equation}
-Sometimes limits of integration in \eqref{convolution} can be reduced to some sub-interval of $[-\infty, +\infty]$.
+Sometimes limits of integration in \eqref{convolution} can be reduced to some subinterval of $[-\infty, +\infty]$.
 \subsection{Convolution commutativity}
 \begin{multline}\label{convolution_commutativity}
 f*g(x)=\int^{+\infty}_{-\infty} f(y)g(x-y)dy=\\
@@ -191,15 +169,12 @@ f*g&=g*f\\
 f*(g+h)&=f*g+f*h\\
 \frac{{d}^{k}{(f*g)}}{dx^k}&=f*\frac{{d}^{k}{g}}{dx^k}\\
 \end{align}
-
 \subsection{Convolution Connection with Sampling }
-
 \begin{align}
 f*\delta (a)&=f(a)\\
 \delta (x-a)*\delta (x-b)=\delta_a * \delta_b &= \delta_{a+b}\\
 \sh_p * f = \left(\sum_{n=-\infty}^{+\infty} \delta(x-np) \right) * f(x) &= \sum_{k=-\infty}^{+\infty} f(x-kp)
 \end{align}
-
 
 \section{What is cross-correlation in math}
 \subsection{Cross-Correlation definition}
@@ -207,13 +182,13 @@ If consider functions $\mathbb{R} \to \mathbb{R}$ then value of cross-correlatio
 \begin{equation}\label{cross-correlation}
 f \star g(x)=\int^{+\infty}_{-\infty} f(y)g(x+y)dy
 \end{equation}
-If compared with convolution there is no "flipping and dragging" of convolution kernel in algebraic definition.
+If compared with convolution there is no “flipping and dragging” of convolution kernel in algebraic definition.
 \begin{flushleft}
  \colorbox{yellow}{\textbf{What Neural Network community mean by Convolution}}\\
  \colorbox{yellow}{\textbf{is some form of Cross-Correlations}}
 \end{flushleft}
 \subsection{Cross-Correlation connection with convolution}
-Let's define function $f^{-}:=f(-x)$. This operation takes a function and reverse it w.r.t. to function value axis.
+Let’s define function $f^{-}:=f(-x)$. This operation takes a function and reverse it w.r.t. to function value axis.
 \begin{multline}
 f \star g(x)=\int^{+\infty}_{-\infty} f(y)g(x+y)dy=\\
 |y=-z,dy=-dz|=\\
@@ -230,6 +205,5 @@ List of some properties which in general does not hold
 f \star g =f^-*g = g*f^- &\ne g^-*f= g \star f\\
 (f \star g) \star h &\ne f \star (g \star h)
 \end{align}
-\section{To be continue...}
-Deep Learning models evolve in time and attack composition function representation from different ways and learning too.
+
 \end{document}
