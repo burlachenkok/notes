@@ -83,7 +83,7 @@ This simple variation in input will allow eliminating every from A, except i-th 
  If function $f$ is differentiable in point then function is continuous in the point.
 \end{theorem}
 \begin{theorem} [Differentiability from existing partial derivatives]
- If function $f$ has all partial derivatives in point, \textbf{a} and this partial derivative are continuous functions in a point \textbf{a} then function is differentiable in points \textbf{a}.
+ If function $f$ has all partial derivatives in point, \textbf{a} and this partial derivative are continuous functions in a point \textbf{a} then function is differentiable in point \textbf{a}.
 \end{theorem}
 \begin{theorem} [Differentiability of function composition] Also known as the chain rule.
  \begin{enumerate}
@@ -97,7 +97,7 @@ This simple variation in input will allow eliminating every from A, except i-th 
 \subsection{Taylor Series for $\mathbb{R} \to \mathbb{R}$}
 Even this days more things are based on convexity, but nevertheless it’s a very fundamental thing for numerical methods and mathematical analysis. 
 Named after the English mathematician \href{https://en.wikipedia.org/wiki/Brook_Taylor}{Brook Taylor (1685–1731)}.
-The form that I have studied in Bauman Moscow State Technical University from lectures Prof. V.V.Feoktistov is a form of Taylor Series with remainder in form of variation of \href{https://mathworld.wolfram.com/SchloemilchRemainder.html}{SchlÃ¶milch Roche}.
+The form that I have studied in Bauman Moscow State Technical University from lectures Prof. V.V.Feoktistov is a form of Taylor Series with remainder in form of variation of \href{https://mathworld.wolfram.com/SchloemilchRemainder.html}{Schlömilch Remainder}.
 \begin{equation}
  f(x)=T_n(x)+R_n(x)=\sum_{k=0}^{n} \dfrac{f^{(k)}(x_0)}{k!}(x-x_0)^k+R_n(x)
 \end{equation}
@@ -105,7 +105,7 @@ The form that I have studied in Bauman Moscow State Technical University from le
  R_n(x)=\dfrac{(x-x_0)^{n+1}(1-\theta)^{n-p+1}}{pn!}f^{(n+1)}(x_0+\theta(x-x_0)) 
 \end{equation}
 In this form we can choose: \textbf{$x_0,p,n$}, but not $\theta \in (0,1)$\\
-\textbf{Steps to prove this theorem:}
+\textbf{Steps to prove this brilliant theorem:}
 \begin{enumerate}
  \item $f(x)=T_n(x)+R_n(x)$, for some undefined $R_n(x)$. Nothing more than notation trick
  \item But if take $x_0$ then in fact $f(x_0)-T_n(x_0)=0=R_n(x_0)$, so it seems that $x_0$ is a zero of function (aka as a root) $R_n(x_0)=0$
@@ -116,7 +116,7 @@ In this form we can choose: \textbf{$x_0,p,n$}, but not $\theta \in (0,1)$\\
  \item What is special about function $F(t)$, that $F(x_0)=F(x)=0$. By \href{https://en.wikipedia.org/wiki/Rolle\%27s_theorem}{Rolle’s theorem} we’re in a situation that there exists at least one $c=x_0+\theta(x-_0), \theta \in (0,1)$ such that. $F'(c)=0$
  \item After formal differentiation there are a lot of cancellation which finally will bring us that we can obtain form of $M(x)$ 
 \end{enumerate}
-\textbf{Various Residuals}
+\textbf{Various residuals}
 \begin{enumerate}
  \item If we will select $p=n+1$ then name of residual is \href{https://mathworld.wolfram.com/LagrangeRemainder.html}{Lagrange Remainder}
  \item If we will select $p=1$ then name of residual is \href{https://mathworld.wolfram.com/CauchyRemainder.html}{Cauchy Remainder} 
@@ -145,7 +145,7 @@ I think you know that convolution is well-defined operation:
 \begin{equation}\label{convolution}
 f*g(x)=\int^{+\infty}_{-\infty} f(y)g(x-y)dy
 \end{equation}
-Sometimes limits of integration in \eqref{convolution} can be reduced to some subinterval of $[-\infty, +\infty]$.
+Sometimes limits of integration can be reduced to some subinterval of $[-\infty, +\infty]$.
 \subsection{Convolution commutativity}
 \begin{multline}\label{convolution_commutativity}
 f*g(x)=\int^{+\infty}_{-\infty} f(y)g(x-y)dy=\\
