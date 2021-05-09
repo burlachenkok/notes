@@ -1,0 +1,15 @@
+[0] Config.pm:311> INFO - This is Biber 2.16
+[0] Config.pm:314> INFO - Logfile is 'deep_learning_parts.blg'
+[135] biber-MSWIN64:340> INFO - === 
+[178] Biber.pm:415> INFO - Reading 'deep_learning_parts.bcf'
+[325] Biber.pm:952> INFO - Found 1 citekeys in bib section 0
+[344] Biber.pm:4340> INFO - Processing section 0
+[357] Biber.pm:4531> INFO - Looking for bibtex format file 'references.bip' for section 0
+[418] bibtex.pm:1689> INFO - LaTeX decoding ...
+[429] bibtex.pm:1494> INFO - Found BibTeX data source 'references.bip'
+[486] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[486] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[487] Biber.pm:4168> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[487] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
+[489] bbl.pm:654> INFO - Writing 'deep_learning_parts.bbl' with encoding 'UTF-8'
+[490] bbl.pm:757> INFO - Output to deep_learning_parts.bbl

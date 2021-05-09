@@ -1,0 +1,90 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{graphicx}
+\usepackage{xcolor}                 % Colors. Usage: \color{red} Red text
+\usepackage{hyperref}               % Insert URL for external resource in the internet
+\usepackage{cmap}                   % Search in PDF
+\usepackage{mathtext}
+\usepackage{icomma}                 % Smart comma
+\usepackage{extsizes}
+% Easy way to setup page paddings
+\usepackage{geometry}
+\geometry{top=25mm}
+\geometry{bottom=35mm}
+\geometry{left=35mm}
+\geometry{right=20mm}
+% Extra work with tables
+\usepackage{longtable}  % Long tables
+\usepackage{multirow}   % Several rows
+\usepackage{multicol}   % Several columns
+\usepackage{setspace} % Interline distance
+\onehalfspacing % x1.5
+%\doublespacing % x2
+%\singlespacing % x1
+% Highlighting
+\usepackage{soul}
+\usepackage{url}                % Lets you typeset urls.
+% Setup hyperlighting
+\usepackage{hyperref}
+\hypersetup{
+ unicode    = true,
+ colorlinks = true,        % false: links in reactangles; true: color links
+ linkcolor  = red,           % internal links within document
+ citecolor  = green,         % link to bibliogrpahy
+ filecolor  = magenta,       % link for files
+ urlcolor   = cyan           % link to URLs
+}
+
+% Bibliogrpahy
+\usepackage[backend=biber,bibencoding=utf8]{biblatex}
+\addbibresource{references.bip}
+
+% https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
+\theoremstyle{plain}                
+\newtheorem{theorem}{Theorem}[section]  
+%======================================================================================
+\title{\textbf{Parts of Deep Learning}}
+\date{Last update: 9 MAY 2022}
+\author{Konstantin Burlachenko (burlachenkok@gmail.com)}
+%======================================================================================
+
+\newcommand\sh[1]{\ensuremath{\mathop{\text{\normalfont ш}}#1}}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\section{Introduction}
+This document is a draft which I have created for purpose to systematize used tricks in various application around deep learning models. The all original papers are driven firstly by practice. This is not a note about that principle and it's pros. and cons. For some areas it's probably fine, for some does not.
+
+\section{AlexNet}
+
+The AlexNet paper "ImageNet Classification with Deep Convolutional Neural Networks" \cite{krizhevsky2012imagenet} is arguably the paper that brought deep learning to the forefront. After reading the paper \cite{krizhevsky2012imagenet} we can obtain the following main ten ideas from it.
+
+\paragraph{First idea} Authors faced with situation that before them people work with smaller tasks and people provides in common the following suggestion in the area of computer vision:  \textit{"\dots collect larger datasets, learn more powerful models, and use better techniques for preventing overfitting\dots”}. For example before AlexNet was a work of LeCun, 1998 \cite{lecun1998gradient} and model with LeNet-5 which uses \textit{60K parameters}. Authors tried go beyond that.
+
+\paragraph{Second idea} Architecture presented at \cite{krizhevsky2012imagenet}, Fig.1 carefully transform original input image. With several steps spatial dimension is reduced with 1 strided convolution (stride 4), and 3 max-pools. From another side channel dimension is increasing. The work empirically try to loose information very carefully. Finally input image is converted into long 4096 vector. During inference images are projected into that space. Finally there is a softmax into 1000 classes. What has been observed practically the importance of the depth of the network (in terms number of layers) which seems matters for vision tasks.
+
+\paragraph{Third Idea} Authors have made the hugest up to date (at moment of 2012) model with \textbf{60 million parameters} to train a models with using 1.2 millions samples. In fact 1.2 million samples is still nothing for huge dimensional models. And due to that image classification task is not so easy due to a that inherited difficulty.
+ 
+\paragraph{Fourth idea} Authors use Relu activation function, also known as $max(0,x)$ or $x_{+}$ for people from Optimization community. Original motivation of the authors was that it was practically impossible to train with sigmoid in that time, due to practically observing slower training time in case of using sigmoid activation function.
+
+\paragraph{Fifth idea} Authors split layers across several GPUs by hands. And there is an additional trick as authors said the inter-GPU communication happened in a specific layers.
+
+\paragraph{Sixth idea} Local Response Layer (LRL) try to “normalize” along channel (i.e. in each specific location for each feature map). Authors stated that for the task it appends generalization ability. Inspiration for this author obtained from research how real neurons behave.
+
+\paragraph{Seventh idea} This paper make huge impact and momentum into Deep Learning technics modeling approach for tackle image classification tasks.
+
+\paragraph{Eight idea} Network is trained on RAW RGB images with central crops which after uniform rescaling into 256 x H or W x 256 are cropped by central crop via obtaining 256x256. There is no use of SIFT or any specific Computer Vision algorithms for feature detection / important points detection.
+
+\paragraph{Ninth idea} Data Augmentation generates artificially trained images on the fly. One extra thing authors found via PCA/SVD the need space for images and append unbiased noise for new images via adding random variables in that space.
+
+\paragraph{Tenth idea} Use CNN layers for architecture by itself and build computation graph with that primitives. Use \textit{DropOut} regularization mechanism which in the same  time can reduce compute time and prevent over fitting. Where \textit{Dropout} is in fact a sampling mechanism across Neural Network architectures by itself.
+
+\section{Some exotic types of convolution in convolution Neural Nets}
+\subsection{Dilated convolution}
+...
+
+\end{document}
