@@ -83,8 +83,75 @@ The AlexNet paper "ImageNet Classification with Deep Convolutional Neural Networ
 
 \paragraph{Tenth idea} Use CNN layers for architecture by itself and build computation graph with that primitives. Use \textit{DropOut} regularization mechanism which in the same  time can reduce compute time and prevent over fitting. Where \textit{Dropout} is in fact a sampling mechanism across Neural Network architectures by itself.
 
-\section{Some exotic types of convolution in convolution Neural Nets}
-\subsection{Dilated convolution}
+\section{Example with arithmetic for counting filters}
+Assume input image of size \textbf{55x55x3} and response or output of the convolution filter is \textbf{55x55x32}.
+
+\paragraph{Number of filters}
+Assume that by filter we use usual convolution which for depth tensor extension look completely into input channel.  We need under this assumption 32 filter, because output volume has 32 activation maps stacked together in the depth dimension/axis.
+
+To go from input volume [55,55,3] given in HWC format to another volume [55,55,32] with filter size 5 and bias term we need 32 filters with spatial dimension [5,5] HW and zero padding occurs with in a format of SAME convolution.
+Same convolution has padding such that $W_{out} = floor(W_{in} - F + 2P)/S + 1$ is the same as $W_{in}$.
+
+\paragraph{Storage for all filter parameters}
+The storage for this filter requires us $32x5x5x3$ parameters for convolution kernels and extra $32$ bias terms. And finally, we need $2432$ scalar parameters.
+
+\paragraph{Storage for a single filter parameters}
+For each filter, we need $5x5x3$ scalars describes filter and one single scalar for bias, a total of $76$ scalars for one filter.
+
+\paragraph{Affect of strides and padding for number of parameters in a filter}
+Stride convolution is a step with which filter with the rectangular or square form is sliding over the input tensor in both spatial dimensions. For classical convolution applied in CNN, there is the freedom to move in the depth dimension of input tensor for convolution kernel, because the kernel’s depth dimension is the same as the input dimension. Stride or Pad characteristics of convolution affect output tensor’s dimension in spatial extend (i.e. W and H) but the number of weights is the same for strided or not strided convolution.
+
+
 ...
+Continue from Assignment 2.
+
+\section{PointNet}
+PointNet was introduced in work \cite{qi2017pointnet}. PointNet is working with geometry in the form of point clouds from $\mathbb{R}^3$. PointNet works with the set of unordered points. The motivation behind having PointNet building blocks is to have internal mechanisms that works with a set of points and which which are permutation invariant w.r.t. to the order of points in input specification.  Several operations are permutation invariant:
+\begin{enumerate}
+	\item Sharing weights for parallel implementation (per point) neural net is permutation invariant w.r.t. to order of input
+	\item Max and Mean pooling are permutation invariant computation blocks w.r.t. to order of input
+\end{enumerate}
+
+This idea motivates  creates the following schema with several Multi Layer Perceptron(MLP) with weight sharing:
+
+\includegraphics[width=\textwidth, keepaspectratio=true]{pointnet.png}
+
+The near-final output is 128 feature vector per each point. PointNet achieved impressive performance on a few benchmarks, however:
+\begin{enumerate}
+	\item It cannot capture the local context on different scales
+	\item No point in PointNet uses its local neighborhood, and it does not generalize well.
+\end{enumerate}
+
+\section{PointNet++}
+PointNet++ has been introduced in a work \cite{qi2017pointnet++}. The main idea of PointNet++ is that it introduces a hierarchical neural network that applies PointNet recursively on a nested partitioning of the input point set. The hierarchical structure is composed of a number of set abstraction levels. There are three main features of PointNet:
+\begin{enumerate}
+	\item Usage of a Set Abstraction Level
+	\item Multi-scale grouping to help with solving the problem with non-uniform density. This is achieved with features at different scales are concatenated to form a multi-scale feature and with random input dropout.
+	\item In a set segmentation task such as semantic point labeling, we want to obtain point features for all the original points. The authors have appended a feature propagation mechanism to support that.
+\end{enumerate}
+
+The limitation of PointNet++:
+\begin{enumerate}
+	\item It works with points and ignores points relationship even if they exist
+	\item It works with static points
+	\item It does not support missing points or points with missing with one of the components
+	\item Another inherited limitation of MLP. For example, the authors state that MLP is a universal continuous function approximation, and it's only partially true. More precisely, it's true only if have no limit to train data, and have the ability to infinitely blow up hidden layer. Both requirements are not valid in typical applications of Neural Nets. In case limit number of train set or limit topology MLP are not general function approximation.
+\end{enumerate}
+
+One of the most important components is a set abstraction level, and it is made of three key layers:
+\begin{enumerate}
+	\item \textbf{Sampling layer}. The Sampling layer selects a set of points from input points, which defines the centroids of local regions. We can call it anchors.
+	\item \textbf{Grouping layer}. The grouping layer then constructs local region sets by finding "neighboring" points around the centroids.
+	\item \textbf{PointNet layer}. The PointNet layer uses a mini-PointNet to encode local region patterns into a feature vector. PointNet is applied for the neighborhood to mimic convolution.
+\end{enumerate}
+
+The benefits of this layer:
+\begin{enumerate}
+	\item Learns "kernels" in compact space
+	\item Kernels have compact spatial support similar to convolution with small compact support
+	\item Suggest a concrete strategy to find central points for operations like convolution.
+	\item It uses ideas like Inception with multi-scale
+	\item It contains ideas similar to Drop-Out from CNN's
+\end{enumerate}
 
 \end{document}

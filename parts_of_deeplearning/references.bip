@@ -17,3 +17,18 @@ pages={2278--2324},
 year={1998},
 publisher={Ieee}
 }
+
+@inproceedings{qi2017pointnet,
+title={Pointnet: Deep learning on point sets for 3d classification and segmentation},
+author={Qi, Charles R and Su, Hao and Mo, Kaichun and Guibas, Leonidas J},
+booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
+pages={652--660},
+year={2017}
+}
+
+@article{qi2017pointnet++,
+title={Pointnet++: Deep hierarchical feature learning on point sets in a metric space},
+author={Qi, Charles R and Yi, Li and Su, Hao and Guibas, Leonidas J},
+journal={arXiv preprint arXiv:1706.02413},
+year={2017}
+}
